@@ -20,3 +20,6 @@ a {
 .tabs-body{
   border: solid 1px darkgrey;
 }
+.center{
+  text-align: center;
+}

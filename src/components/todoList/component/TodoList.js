@@ -8,37 +8,37 @@ export default class TodoList extends  React.Component{
     }
 
     render() {
+        const { lists }  = this.props;
         return (
                 <Table striped bordered condensed hover>
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Username</th>
+                        <th>Action</th>
+                        <th>Tags</th>
+                        <th>Due Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
                     </tr>
                     </thead>
                     <tbody>
+                    {
+                        lists.map(item => {
+                            return (
+                                <tr>
+                                    <td>{item.action}</td>
+                                    <td>{item.tags}</td>
+                                    <td>{item.dueDate}</td>
+                                    <td>{item.status}</td>
+                                    <td>{item.actions}</td>
+                                </tr>
+                            );
+                        })
+                    }
                     <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td colSpan="2">Larry the Bird</td>
-                        <td>@twitter</td>
+                        <td colSpan='5' className="center">+</td>
                     </tr>
                     </tbody>
                 </Table>
         );
     }
-
 }

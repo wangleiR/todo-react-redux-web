@@ -1,4 +1,4 @@
 
-import TodoList from './component/TodoList';
+import TodoList from './Container';
 
 export default TodoList;

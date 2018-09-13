@@ -9,7 +9,7 @@ import Todo from './views/Todo';
 import Statistic from './views/Statistic';
 import Reducer from './dataStore/Reducer'
 
-const store = createStore(combineReducers(Reducer));
+const store = createStore(Reducer);
 
 const Main = () => (
     <Provider store={store}>
