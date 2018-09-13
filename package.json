@@ -12,5 +12,13 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "react-bootstrap": "^0.32.4",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "react-select": "^2.0.0",
+    "react-svg-piechart": "^2.1.1",
+    "redux": "^4.0.0"
   }
 }
