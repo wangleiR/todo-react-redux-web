@@ -19,12 +19,12 @@ const Main = () => (
                 <Link to='/'> To dos</Link>
                 <Link to='/statistic'> Statistic</Link>
             </div>
-            <Switch>
-                <div className="tabs-body">
+            <div className="tabs-body">
+                <Switch>
                     <Route exact path='/' component={Todo}/>
                     <Route path='/statistic' component={Statistic}/>
-                </div>
-            </Switch>
+                </Switch>
+            </div>
           </div>
         </BrowserRouter>
     </Provider>

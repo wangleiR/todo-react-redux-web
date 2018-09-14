@@ -7,7 +7,7 @@
   justify-content: left;
 }
 
-a {
+.tabs-title a {
   width: 120px;
   padding: 10px;
   border: solid 1px darkgrey;
@@ -20,6 +20,16 @@ a {
 .tabs-body{
   border: solid 1px darkgrey;
 }
+
 .center{
   text-align: center;
 }
+
+.todo-panel{
+  margin: 20px;
+}
+
+span {
+  margin: 0 5px;
+}
+

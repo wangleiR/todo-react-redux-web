@@ -1,22 +1,25 @@
 
 const initList = [{
-    action : 'Action 1',
+    id:1,
+    actionName : 'Action 1',
     tags : "Meeting Review",
     dueDate : '20180917',
     status: 'In Progress',
-    actions:'details delete'
+    actions: ["details", "delete"],
 },{
-    action : 'Action 2',
+    id:2,
+    actionName : 'Action 2',
     tags : "Meeting Review",
     dueDate : '20180919',
     status: 'In Progress',
-    actions:'details delete'
+    actions: ["details", "delete"],
 },{
-    action : 'Action 3',
+    id:3,
+    actionName : 'Action 3',
     tags : "Meeting Review",
     dueDate : '20180929',
     status: 'In Progress',
-    actions:'details delete'
+    actions: ["details", "delete"],
 }];
 
 const initState = {
@@ -28,10 +31,24 @@ const Reducer = (state = initState, action) => {
         case "ADD_TODO" :
             return {
                 ...state,
+                lists: [
+                    ...state.lists,
+                    {
+                        id: new Date().getTime(),
+                        actionName : action.item.actionName,
+                        tags : action.item.tags,
+                        dueDate : action.item.dueDate,
+                        status: action.item.status,
+                        actions: ["details", "delete"],
+                    }
+                ]
             };
 
         case "DELETE_TODO":
-            return 0;
+            return {
+                ...state,
+                lists:state.lists.filter(item => item.id !== action.id),
+            };
 
         default:
             return state;

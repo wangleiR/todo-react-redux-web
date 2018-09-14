@@ -3,7 +3,7 @@ import TodoList from '../components/todoList';
 
 const Todo = () => {
     return (
-        <div>
+        <div className="todo-panel">
             <TodoList />
         </div>
     );
