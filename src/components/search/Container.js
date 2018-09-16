@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import Search from './component/Search';
 
-const mapStateToProps = ({ lists,bakLists }) => ({
-    lists: lists,
-    bakLists: bakLists,
+const mapStateToProps = ({ reducer }) => ({
+    lists: reducer.lists,
+    bakLists: reducer.bakLists,
 });
 
 const mapDispatchToProps = (dispatch) => ({
