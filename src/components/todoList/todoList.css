@@ -3,3 +3,23 @@ button {
     background-color: ghostwhite;
     border-radius:5px;
 }
+.triangle{
+    display: flex;
+}
+
+.triangle-up {
+     width: 0;
+     height: 0;
+     border-style: solid;
+     border-width: 0 5px 10px 5px;
+     border-color: transparent transparent black transparent;
+ }
+
+.triangle-down{
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 5px 0 5px;
+    border-color: black transparent transparent transparent;
+
+}

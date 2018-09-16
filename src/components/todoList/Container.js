@@ -7,6 +7,7 @@ const mapStateToProps = ({ lists }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
     onDeleteItem: (id) => dispatch({type: 'DELETE_TODO', id: id}),
+
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoList);
