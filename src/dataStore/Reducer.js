@@ -24,6 +24,7 @@ const initList = [{
 
 const initState = {
     lists : initList,
+    bakLists : initList,
 };
 
 const Reducer = (state = initState, action) => {
@@ -41,6 +42,17 @@ const Reducer = (state = initState, action) => {
                         status: action.item.status,
                         actions: ["details", "delete"],
                     }
+                ],
+                bakLists: [
+                    ...state.bakLists,
+                    {
+                        id: new Date().getTime(),
+                        actionName : action.item.actionName,
+                        tags : action.item.tags,
+                        dueDate : action.item.dueDate,
+                        status: action.item.status,
+                        actions: ["details", "delete"],
+                    }
                 ]
             };
 
@@ -48,6 +60,13 @@ const Reducer = (state = initState, action) => {
             return {
                 ...state,
                 lists:state.lists.filter(item => item.id !== action.id),
+                bakLists:state.bakLists.filter(item => item.id !== action.id),
+            };
+
+        case "FILTER_TODO":
+            return {
+                ...state,
+                lists:action.lists,
             };
 
         default:
