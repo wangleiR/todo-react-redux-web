@@ -2,11 +2,14 @@ import React from "react";
 import { Modal, Button} from "react-bootstrap";
 import Select from "react-select";
 import '../dialog.css';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+import moment from 'moment';
 
 const statusOptions = [
     { value: 'To Do', label: 'To Do' },
     { value: 'In Progress', label: 'In Progress' },
-    { value: 'Done', label: 'Done' },
+    { value: 'Blocked', label: 'Blocked' },
 ];
 
 const tagOptions = [
@@ -19,9 +22,9 @@ export default class Dialog extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            actionName: '',
+            actionName: 'action',
             tags:['Work'],
-            dueDate:'',
+            dueDate: moment().format('YYYY-MM-DD'),
             status:'To Do',
         }
     }
@@ -45,6 +48,12 @@ export default class Dialog extends React.Component{
         });
     };
 
+    setItemState = () => {
+      this.setState({
+
+      });
+    };
+
     render() {
         const {
             onAddItem,
@@ -63,7 +72,7 @@ export default class Dialog extends React.Component{
                         }}
                         >
                             <label className="dialog-label">Action Name : </label>
-                            <input name="actionName"/>
+                            <input name="actionName" value={this.state.actionName}/>
                         </div>
 
                         <div className="dialog-body-item">
@@ -81,12 +90,14 @@ export default class Dialog extends React.Component{
                             </div>
                         </div>
 
-                        <div onChange={(event)=>{
-                            this.setState({dueDate : event.target.value});
-                        }}
-                            className="dialog-body-item">
+                        <div className="dialog-body-item">
                             <label className="dialog-label">Due Date : </label>
-                            <input name="dueDate" />
+                            <DatePicker
+                                onChange={(date)=>{
+;                                   this.setState({dueDate : date.format('YYYY-MM-DD')});
+                                }}
+                                selected={moment(this.state.dueDate)}
+                            />
                         </div>
 
                         <div className="dialog-body-item">

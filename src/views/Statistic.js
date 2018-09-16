@@ -1,8 +1,10 @@
 import React from "react";
-
+import Chart from '../components/chart'
 const Statistic = () => {
     return (
-        <div>Statistic</div>
+        <div>
+           <Chart />
+        </div>
     );
 };
 

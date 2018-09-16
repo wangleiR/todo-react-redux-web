@@ -7,7 +7,8 @@ import { BrowserRouter, Route, Switch ,Link} from 'react-router-dom';
 
 import Todo from './views/Todo';
 import Statistic from './views/Statistic';
-import Reducer from './dataStore/Reducer'
+import Reducer from './dataStore/Reducer';
+import Dialog from './components/dialog/';
 
 const store = createStore(Reducer);
 
@@ -23,6 +24,7 @@ const Main = () => (
                 <Switch>
                     <Route exact path='/' component={Todo}/>
                     <Route path='/statistic' component={Statistic}/>
+                    <Route path='/detail:id' component={Dialog}/>
                 </Switch>
             </div>
           </div>

@@ -2,6 +2,7 @@ import React from "react";
 import Table from "react-bootstrap/es/Table";
 import Dialog from '../../dialog/';
 import { Link } from 'react-router-dom'
+import '../todoList.css';
 
 export default class TodoList extends  React.Component{
 
@@ -35,6 +36,7 @@ export default class TodoList extends  React.Component{
                 <Table striped bordered condensed hover>
                     <thead>
                     <tr>
+                        <th></th>
                         <th>Action</th>
                         <th>Tags</th>
                         <th>Due Date</th>
@@ -47,6 +49,7 @@ export default class TodoList extends  React.Component{
                         lists.map(item => {
                             return (
                                 <tr key={item.id}>
+                                    <td>{item.id}</td>
                                     <td>{item.actionName}</td>
                                     <td>{item.tags}</td>
                                     <td>{item.dueDate}</td>
@@ -55,12 +58,12 @@ export default class TodoList extends  React.Component{
                                         {
                                             item.actions.map(it => {
                                                 if (it === 'delete') {
-                                                    return <span key={new Date().getTime()+1} onClick={()=>{
+                                                    return <button key={new Date().getTime()+1} onClick={()=>{
                                                         onDeleteItem(item.id)
-                                                    }}>{it}</span>
+                                                    }}>{it}</button>
                                                 }
                                                 if (it === 'details'){
-                                                    return <span key={new Date().getTime()+11}><Link to='/'>{it}</Link></span>
+                                                    return <button key={item.id}><Link to={`/details:${item.id}`}>{it}</Link></button>
                                                 }
                                             })
                                         }
@@ -71,7 +74,7 @@ export default class TodoList extends  React.Component{
                     }
                     <tr>
                         <td onClick={() => {this.openDialog()}
-                        } colSpan='5' className="center">+</td>
+                        } colSpan='6' className="center">+</td>
                     </tr>
                     </tbody>
                 </Table>
