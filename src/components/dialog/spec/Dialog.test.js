@@ -9,11 +9,17 @@ describe('about dialog', function () {
         componment = shallow(<Dialog />);
     });
 
-    it('should render dialog with correct className', ()=> {
-        expect(componment.find(".static-modal").length).toBe(1);
+    describe('about dialog show', function () {
+        it('should render dialog with correct className', ()=> {
+            expect(componment.find(".static-modal").length).toBe(1);
+        });
+        it('should render dialog input  with correct className', ()=> {
+            expect(componment.find(".dialog-label").length).toBe(4);
+        });
     });
 
-    it('should render text with correct className', ()=> {
-        expect(componment.find(Home).props()).toBe({text:"123"});
-    });
+
+    // it('should render text with correct className', ()=> {
+    //     expect(componment.find(Home).props()).toBe({text:"123"});
+    // });
 });

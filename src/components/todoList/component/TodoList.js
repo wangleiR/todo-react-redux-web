@@ -95,7 +95,7 @@ export default class TodoList extends  React.Component{
                                                     }}>{it}</button>
                                                 }
                                                 if (it === 'details'){
-                                                    return <button key={item.id}><Link to={`/details:${item.id}`}>{it}</Link></button>
+                                                    return <button key={item.id}><Link to={`/details/${item.id}`}>{it}</Link></button>
                                                 }
                                             })
                                         }

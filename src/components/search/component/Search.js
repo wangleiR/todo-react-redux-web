@@ -25,7 +25,7 @@ export default class Search extends  React.Component{
     render() {
         return (
             <div className="search-container">
-                <input id="searchInput" onKeyDown={this.onCompleteInput} onChange={(event)=>{this.onGetInputName(event)}} />
+                <input className="searchInput" onKeyDown={this.onCompleteInput} onChange={(event)=>{this.onGetInputName(event)}} />
                 <label>Advanced</label>
             </div>
         );

@@ -25,13 +25,12 @@ const Main = () => (
           <div className="container">
               {
                   store.getState().isAuthenticated
-                  // && <Header />
               }
             <div>
                 <Switch>
                     <Route exact path='/' component={Login}/>
                     <Route path='/statistic' component={Statistic}/>
-                    <Route path='/detail:id' component={Dialog}/>
+                    <Route path='/details/:id' component={Dialog}/>
                     <Route path="/home" component={Todo} />
                 </Switch>
             </div>

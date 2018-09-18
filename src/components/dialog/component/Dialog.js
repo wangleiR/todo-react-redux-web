@@ -5,6 +5,7 @@ import '../dialog.css';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import {Link} from "react-router-dom";
 
 const statusOptions = [
     { value: 'To Do', label: 'To Do' },
@@ -21,16 +22,22 @@ const tagOptions = [
 export default class Dialog extends React.Component{
     constructor(props){
         super(props);
-        this.state = {
-            actionName: 'action',
-            tags:['Work'],
-            dueDate: moment().format('YYYY-MM-DD'),
-            status:'To Do',
+        if (this.props.match) {
+            this.setItemState(this.props.lists, this.props.match);
+            this.id = this.props.match.params.id
+        } else {
+            this.state = {
+                actionName: 'action',
+                tags:['Work'],
+                dueDate: moment().format('YYYY-MM-DD'),
+                status:'To Do',
+            };
         }
     }
 
     getToDoItem = () =>{
         return {
+            id: this.id,
             actionName: this.state.actionName,
             tags: this.state.tags,
             dueDate: this.state.dueDate,
@@ -48,15 +55,24 @@ export default class Dialog extends React.Component{
         });
     };
 
-    setItemState = () => {
-      this.setState({
-
-      });
+    setItemState = (lists,match) => {
+        if (match) {
+          lists.map(item=>{
+              console.log(item.id);
+              if (item.id == match.params.id) {
+                  this.state = {
+                      ...item
+                  };
+              }
+          });
+          console.log(this.state)
+        }
     };
 
     render() {
         const {
             onAddItem,
+            onUpdateItem,
         } = this.props;
 
         return (
@@ -80,7 +96,7 @@ export default class Dialog extends React.Component{
                             <div className="dialog-select-input">
                                 <Select
                                     onChange={(event)=>{this.addTagsForItem(event)}}
-                                    defaultValue={[tagOptions[2]]}
+                                    defaultValue={[{ value: this.state.tags, label: this.state.tags }]}
                                     isMulti
                                     name="colors"
                                     options={tagOptions}
@@ -104,7 +120,7 @@ export default class Dialog extends React.Component{
                             <label className="dialog-label">Status : </label>
                             <div className="dialog-select-input">
                                 <Select onChange={(event)=>{this.setState({status : event.value});}}
-                                    defaultValue={[statusOptions[0]]}
+                                    defaultValue={[{value:this.state.status,label:this.state.status}]}
                                     options={statusOptions}
                                 />
                             </div>
@@ -112,11 +128,26 @@ export default class Dialog extends React.Component{
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button bsStyle="primary" onClick={()=>{
-                            onAddItem(this.getToDoItem());
-                            this.props.closeDialog()
-                        }}>Add</Button>
-                        <Button onClick={()=>{this.props.closeDialog()}}>Close</Button>
+                        {
+                            !this.props.match &&
+                             <div>
+                                <Button bsStyle="primary" onClick={()=>{
+                                    onAddItem(this.getToDoItem());
+                                    this.props.closeDialog()
+                                }}>Add</Button>
+                                <Button onClick={()=>{this.props.closeDialog()}}>Close</Button>
+                            </div>
+                        }
+                        {
+                            this.props.match &&
+                            <div>
+                                <Button onClick={()=>{
+                                    onUpdateItem(this.getToDoItem());
+                                }}><Link to={`/home`}>Update</Link></Button>
+                                <Button><Link to={`/home`}>Close</Link></Button>
+                            </div>
+
+                        }
                     </Modal.Footer>
                 </Modal.Dialog>
             </div>

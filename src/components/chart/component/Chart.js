@@ -22,7 +22,7 @@ export default class Chart extends  React.Component{
                 '#36A2EB',
                 '#FFCE56'
             ],
-        }
+        };
         this.calculDifferentItemStatusNumber(this.props.lists);
     }
 
@@ -50,7 +50,6 @@ export default class Chart extends  React.Component{
         this.setState({
             data: this.state.data,
         });
-
     };
 
     render() {

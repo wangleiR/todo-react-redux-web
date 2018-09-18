@@ -63,6 +63,35 @@ const Reducer = (state = initState, action) => {
                 bakLists:state.bakLists.filter(item => item.id !== action.id),
             };
 
+
+        case "UPDATE_TODO":
+            return {
+                ...state,
+                lists: [
+                    ...state.lists.filter(item => item.id != action.item.id),
+                    {
+                        id: action.item.id,
+                        actionName : action.item.actionName,
+                        tags : action.item.tags,
+                        dueDate : action.item.dueDate,
+                        status: action.item.status,
+                        actions: ["details", "delete"],
+                    }
+                ],
+                bakLists: [
+                    ...state.bakLists.filter(item => item.id != action.item.id),
+                    {
+                        id: action.item.id,
+                        actionName : action.item.actionName,
+                        tags : action.item.tags,
+                        dueDate : action.item.dueDate,
+                        status: action.item.status,
+                        actions: ["details", "delete"],
+                    }
+                ]
+            };
+
+
         case "FILTER_TODO":
             return {
                 ...state,
