@@ -110,7 +110,7 @@ export default class Dialog extends React.Component{
                             <label className="dialog-label">Due Date : </label>
                             <DatePicker
                                 onChange={(date)=>{
-;                                   this.setState({dueDate : date.format('YYYY-MM-DD')});
+                                   this.setState({dueDate : date.format('YYYY-MM-DD')});
                                 }}
                                 selected={moment(this.state.dueDate)}
                             />

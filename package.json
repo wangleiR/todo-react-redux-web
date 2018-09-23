@@ -2,6 +2,7 @@
   "name": "c-todo",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "react": "^16.5.0",
     "react-datepicker": "^1.6.0",
