@@ -23,7 +23,7 @@ export function getListFromAPI(token,getListFromBackAPI) {
 }
 
 
-export function deleteListFromAPIById(token,todoId,deleteInReduxFunc) {
+export function deleteListFromAPIById(token,todoId,updateTodoInReduxFunc) {
 
     return fetch('/todos/'+todoId,{
         method:'DELETE',
@@ -34,8 +34,48 @@ export function deleteListFromAPIById(token,todoId,deleteInReduxFunc) {
         },
     }).then(response => {
         if (response.ok){
-            deleteInReduxFunc(todoId);
+            getListFromAPI(token,updateTodoInReduxFunc);
             return response.json();
+        }
+    }).catch(error => {
+        console.error('Error:', error)
+    });
+}
+
+export function addTodoFromAPI(token,todoObject,updateTodoInReduxFunc) {
+
+    return fetch('/todos',{
+        method:'POST',
+        headers:{
+            'Content-Type' : 'application/json',
+            'Accept': 'application/json',
+            'Authorization':token,
+        },
+        body: JSON.stringify(todoObject)
+    }).then(response => {
+        if (response.ok){
+            getListFromAPI(token,updateTodoInReduxFunc);
+            return response.json();
+        }
+    }).catch(error => {
+        console.error('Error:', error)
+    });
+}
+
+
+export function editTodoFromAPI(token,todoObject,updateTodoInReduxFunc) {
+
+    return fetch('/todos',{
+        method:'PUT',
+        headers:{
+            'Content-Type' : 'application/json',
+            'Accept': 'application/json',
+            'Authorization':token,
+        },
+        body: JSON.stringify(todoObject)
+    }).then(response => {
+        if (response.ok){
+            getListFromAPI(token,updateTodoInReduxFunc);
         }
     }).catch(error => {
         console.error('Error:', error)

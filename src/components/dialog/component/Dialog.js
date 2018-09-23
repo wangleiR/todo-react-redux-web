@@ -6,6 +6,11 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import {Link} from "react-router-dom";
+import {
+    addTodoFromAPI,
+    editTodoFromAPI,
+} from '../../../restfulAPI/API';
+
 
 const statusOptions = [
     { value: 'To Do', label: 'To Do' },
@@ -27,7 +32,7 @@ export default class Dialog extends React.Component{
             this.id = this.props.match.params.id
         } else {
             this.state = {
-                actionName: 'action',
+                name: 'action',
                 tags:['Work'],
                 dueDate: moment().format('YYYY-MM-DD'),
                 status:'To Do',
@@ -38,8 +43,8 @@ export default class Dialog extends React.Component{
     getToDoItem = () =>{
         return {
             id: this.id,
-            actionName: this.state.actionName,
-            tags: this.state.tags,
+            name: this.state.name,
+            // tags: [{}],
             dueDate: this.state.dueDate,
             status: this.state.status,
         }
@@ -65,7 +70,6 @@ export default class Dialog extends React.Component{
                   };
               }
           });
-          console.log(this.state)
         }
     };
 
@@ -73,6 +77,8 @@ export default class Dialog extends React.Component{
         const {
             onAddItem,
             onUpdateItem,
+            userToken,
+            getListFromBackAPI,
         } = this.props;
 
         return (
@@ -84,11 +90,11 @@ export default class Dialog extends React.Component{
                     <Modal.Body>
                         <div className="dialog-body-item"
                             onChange={(event)=>{
-                            this.setState({actionName : event.target.value});
+                            this.setState({name : event.target.value});
                         }}
                         >
                             <label className="dialog-label">Action Name : </label>
-                            <input name="actionName" value={this.state.actionName}/>
+                            <input name="name" value={this.state.name}/>
                         </div>
 
                         <div className="dialog-body-item">
@@ -132,7 +138,7 @@ export default class Dialog extends React.Component{
                             !this.props.match &&
                              <div>
                                 <Button bsStyle="primary" onClick={()=>{
-                                    onAddItem(this.getToDoItem());
+                                    addTodoFromAPI(userToken,this.getToDoItem(),getListFromBackAPI);
                                     this.props.closeDialog()
                                 }}>Add</Button>
                                 <Button onClick={()=>{this.props.closeDialog()}}>Close</Button>
@@ -142,7 +148,7 @@ export default class Dialog extends React.Component{
                             this.props.match &&
                             <div>
                                 <Button onClick={()=>{
-                                    onUpdateItem(this.getToDoItem());
+                                    editTodoFromAPI(userToken,this.getToDoItem(),getListFromBackAPI);
                                 }}><Link to={`/home`}>Update</Link></Button>
                                 <Button><Link to={`/home`}>Close</Link></Button>
                             </div>

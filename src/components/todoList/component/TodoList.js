@@ -64,6 +64,7 @@ export default class TodoList extends  React.Component{
             listOperation,
             userToken,
             onDeleteItem,
+            getListFromBackAPI,
         }  = this.props;
         return (
             <div>
@@ -92,7 +93,7 @@ export default class TodoList extends  React.Component{
                                     <td>{item.name}</td>
                                     <td>
                                         {
-                                            item.tags.map(tag => {
+                                            item.tags && item.tags.map(tag => {
                                                 return tag.tagName;
                                             })
                                         }
@@ -104,7 +105,7 @@ export default class TodoList extends  React.Component{
                                             listOperation && listOperation.map(it => {
                                                 if (it === 'delete') {
                                                     return <button key={new Date().getTime()+1} onClick={()=>{
-                                                        deleteListFromAPIById(userToken,item.id,onDeleteItem);
+                                                        deleteListFromAPIById(userToken,item.id,getListFromBackAPI);
                                                     }}>{it}</button>
                                                 }
                                                 if (it === 'details'){
