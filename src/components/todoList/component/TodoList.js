@@ -3,6 +3,10 @@ import Table from "react-bootstrap/es/Table";
 import Dialog from '../../dialog/';
 import { Link } from 'react-router-dom'
 import '../todoList.css';
+import {
+    getListFromAPI,
+    deleteListFromAPIById
+} from '../../../restfulAPI/API';
 
 export default class TodoList extends  React.Component{
 
@@ -11,7 +15,8 @@ export default class TodoList extends  React.Component{
         this.state = {
             isOpenDialog : false,
             idOrderUp: true,
-        }
+        };
+        getListFromAPI(this.props.userToken,this.props.getListFromBackAPI);
     }
 
     openDialog = () => {
@@ -56,6 +61,8 @@ export default class TodoList extends  React.Component{
     render() {
         const {
             lists,
+            listOperation,
+            userToken,
             onDeleteItem,
         }  = this.props;
         return (
@@ -82,16 +89,22 @@ export default class TodoList extends  React.Component{
                             return (
                                 <tr key={item.id}>
                                     <td>{item.id}</td>
-                                    <td>{item.actionName}</td>
-                                    <td>{item.tags}</td>
+                                    <td>{item.name}</td>
+                                    <td>
+                                        {
+                                            item.tags.map(tag => {
+                                                return tag.tagName;
+                                            })
+                                        }
+                                    </td>
                                     <td>{item.dueDate}</td>
                                     <td>{item.status}</td>
                                     <td>
                                         {
-                                            item.actions.map(it => {
+                                            listOperation && listOperation.map(it => {
                                                 if (it === 'delete') {
                                                     return <button key={new Date().getTime()+1} onClick={()=>{
-                                                        onDeleteItem(item.id)
+                                                        deleteListFromAPIById(userToken,item.id,onDeleteItem);
                                                     }}>{it}</button>
                                                 }
                                                 if (it === 'details'){

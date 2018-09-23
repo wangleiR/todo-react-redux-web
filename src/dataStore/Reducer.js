@@ -1,26 +1,20 @@
 
-const initList = [{
-    id:1,
-    actionName : 'Action 1',
-    tags : "Meeting Review",
-    dueDate : '20180917',
-    status: 'In Progress',
-    actions: ["details", "delete"],
-},{
-    id:2,
-    actionName : 'Action 2',
-    tags : "Meeting Review",
-    dueDate : '20180919',
-    status: 'In Progress',
-    actions: ["details", "delete"],
-},{
-    id:3,
-    actionName : 'Action 3',
-    tags : "Meeting Review",
-    dueDate : '20180929',
-    status: 'In Progress',
-    actions: ["details", "delete"],
-}];
+const initList = [
+    {
+        "id": 1,
+        "name": "meet L",
+        "status": "To DO",
+        "dueDate": 1537372800000,
+        "userId": 1,
+        "tags": [
+            {
+                "id": 1,
+                "tagName": "Work",
+                "userId": 1
+            }
+        ]
+    },
+];
 
 const initState = {
     lists : initList,
@@ -29,6 +23,13 @@ const initState = {
 
 const Reducer = (state = initState, action) => {
     switch (action.type) {
+        case "LIST_TODO" :
+            return{
+                ...state,
+                lists:action.todos,
+                bakLists:action.todos,
+                listOperation:["details", "delete"],
+            };
         case "ADD_TODO" :
             return {
                 ...state,

@@ -26,7 +26,8 @@ export default class Login extends React.Component{
             }
         }).then( data  => {
           if (data !== undefined) {
-              this.props.onLogin();
+              console.log(data.token);
+              this.props.onLogin(data.token);
           }
         }).catch(error => {
             console.error('Error:', error)
