@@ -11,10 +11,12 @@ import Reducer from './dataStore/Reducer';
 import Dialog from './components/dialog/';
 import Login from "./components/login";
 import { authenticationReducer } from "./dataStore/authenticationReducer";
+import tagReducer from "./dataStore/tagReducer";
 
 const store = createStore(combineReducers({
     isAuthenticated: authenticationReducer,
     reducer :Reducer,
+    tagReducer:tagReducer,
 }));
 
 
@@ -24,7 +26,7 @@ const Main = () => (
         <BrowserRouter>
           <div className="container">
               {
-                  store.getState().isAuthenticated
+                  store.getState().isAuthenticated.isSucceed
               }
             <div>
                 <Switch>

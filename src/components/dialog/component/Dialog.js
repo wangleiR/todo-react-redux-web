@@ -9,6 +9,7 @@ import {Link} from "react-router-dom";
 import {
     addTodoFromAPI,
     editTodoFromAPI,
+    getTagListFromAPI,
 } from '../../../restfulAPI/API';
 
 
@@ -16,12 +17,6 @@ const statusOptions = [
     { value: 'To Do', label: 'To Do' },
     { value: 'In Progress', label: 'In Progress' },
     { value: 'Blocked', label: 'Blocked' },
-];
-
-const tagOptions = [
-    { value: 'Study', label: 'Study' },
-    { value: 'Life', label: 'Life' },
-    { value: 'Work', label: 'Work' }
 ];
 
 export default class Dialog extends React.Component{
@@ -33,11 +28,12 @@ export default class Dialog extends React.Component{
         } else {
             this.state = {
                 name: 'action',
-                tags:['Work'],
+                tags:"",
                 dueDate: moment().format('YYYY-MM-DD'),
                 status:'To Do',
             };
         }
+        getTagListFromAPI(this.props.userToken,this.props.getTagListFromBackAPI);
     }
 
     getToDoItem = () =>{
@@ -79,6 +75,7 @@ export default class Dialog extends React.Component{
             onUpdateItem,
             userToken,
             getListFromBackAPI,
+            tagsLists,
         } = this.props;
 
         return (
@@ -105,7 +102,7 @@ export default class Dialog extends React.Component{
                                     defaultValue={[{ value: this.state.tags, label: this.state.tags }]}
                                     isMulti
                                     name="colors"
-                                    options={tagOptions}
+                                    options={tagsLists}
                                     className="basic-multi-select"
                                     classNamePrefix="select"
                                 />

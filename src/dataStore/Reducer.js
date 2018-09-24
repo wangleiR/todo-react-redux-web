@@ -37,7 +37,7 @@ const Reducer = (state = initState, action) => {
                     ...state.lists,
                     {
                         id: new Date().getTime(),
-                        actionName : action.item.actionName,
+                        name : action.item.name,
                         tags : action.item.tags,
                         dueDate : action.item.dueDate,
                         status: action.item.status,
@@ -48,7 +48,7 @@ const Reducer = (state = initState, action) => {
                     ...state.bakLists,
                     {
                         id: new Date().getTime(),
-                        actionName : action.item.actionName,
+                        name : action.item.name,
                         tags : action.item.tags,
                         dueDate : action.item.dueDate,
                         status: action.item.status,
@@ -72,7 +72,7 @@ const Reducer = (state = initState, action) => {
                     ...state.lists.filter(item => item.id != action.item.id),
                     {
                         id: action.item.id,
-                        actionName : action.item.actionName,
+                        name : action.item.name,
                         tags : action.item.tags,
                         dueDate : action.item.dueDate,
                         status: action.item.status,
@@ -83,7 +83,7 @@ const Reducer = (state = initState, action) => {
                     ...state.bakLists.filter(item => item.id != action.item.id),
                     {
                         id: action.item.id,
-                        actionName : action.item.actionName,
+                        name : action.item.name,
                         tags : action.item.tags,
                         dueDate : action.item.dueDate,
                         status: action.item.status,

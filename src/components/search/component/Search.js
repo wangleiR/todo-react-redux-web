@@ -11,7 +11,7 @@ export default class Search extends  React.Component{
     }
     onCompleteInput =(event) =>{
         if (event.keyCode === 13){
-            let arr = this.props.bakLists.filter(item => item.actionName.indexOf(this.state.searchName) !== -1);
+            let arr = this.props.bakLists.filter(item => item.name.indexOf(this.state.searchName) !== -1);
             this.props.onFilterItemByName(arr);
         }
     };

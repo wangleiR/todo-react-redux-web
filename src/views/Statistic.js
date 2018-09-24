@@ -28,7 +28,7 @@ const Statistic = ( logged ) => {
 };
 
 const mapStateToProps = ({ isAuthenticated }) => ({
-    logged: isAuthenticated
+    logged: isAuthenticated.isSucceed
 });
 
 export default connect(mapStateToProps)(Statistic);
