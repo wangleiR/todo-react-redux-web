@@ -12,6 +12,7 @@ import Dialog from './components/dialog/';
 import Login from "./components/login";
 import { authenticationReducer } from "./dataStore/authenticationReducer";
 import tagReducer from "./dataStore/tagReducer";
+import Register from "./components/register/components/Register";
 
 const store = createStore(combineReducers({
     isAuthenticated: authenticationReducer,
@@ -34,6 +35,7 @@ const Main = () => (
                     <Route path='/statistic' component={Statistic}/>
                     <Route path='/details/:id' component={Dialog}/>
                     <Route path="/home" component={Todo} />
+                    <Route path="/register" component={Register} />
                 </Switch>
             </div>
           </div>
