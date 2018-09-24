@@ -9,7 +9,8 @@ const initList = [
         "tags": [
             {
                 "id": 1,
-                "tagName": "Work",
+                "value": "Work",
+                "label": "Work",
                 "userId": 1
             }
         ]

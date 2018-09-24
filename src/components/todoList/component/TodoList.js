@@ -94,7 +94,7 @@ export default class TodoList extends  React.Component{
                                     <td>
                                         {
                                             item.tags && item.tags.map(tag => {
-                                                return tag.tagName;
+                                                return <span>{tag.value}</span>;
                                             })
                                         }
                                     </td>

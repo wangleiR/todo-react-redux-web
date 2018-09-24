@@ -28,7 +28,7 @@ export default class Dialog extends React.Component{
         } else {
             this.state = {
                 name: 'action',
-                tags:"",
+                tags: [],
                 dueDate: moment().format('YYYY-MM-DD'),
                 status:'To Do',
             };
@@ -40,19 +40,18 @@ export default class Dialog extends React.Component{
         return {
             id: this.id,
             name: this.state.name,
-            // tags: [{}],
+            tags: this.state.tags,
             dueDate: this.state.dueDate,
             status: this.state.status,
         }
     };
 
     addTagsForItem = (event) => {
-        let arr = "";
         event.map(obj => {
-            return arr += obj.value+ " ";
+            return this.state.tags.push(obj);
         });
         this.setState({
-            tags : arr,
+            tags : this.state.tags,
         });
     };
 
@@ -99,7 +98,7 @@ export default class Dialog extends React.Component{
                             <div className="dialog-select-input">
                                 <Select
                                     onChange={(event)=>{this.addTagsForItem(event)}}
-                                    defaultValue={[{ value: this.state.tags, label: this.state.tags }]}
+                                    // defaultValue={[{ value: this.state.tags, label: this.state.tags }]}
                                     isMulti
                                     name="colors"
                                     options={tagsLists}
