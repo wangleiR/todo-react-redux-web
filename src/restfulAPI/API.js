@@ -129,3 +129,25 @@ export function searchTodoListFromAPI(token,queryObject,getTodoListFromBackAPI) 
     });
 }
 
+export function sortTodoListFromAPI(token,sortParamObject,getListFromBackAPI) {
+
+    return fetch('/todos?sort='+sortParamObject.sort+','+sortParamObject.direction,{
+        method:'GET',
+        headers:{
+            'Content-Type' : 'application/json',
+            'Accept': 'application/json',
+            'Authorization':token,
+        },
+    }).then(response => {
+        if (response.ok){
+            return response.json();
+        }
+    }).then( data  => {
+        if (data !== undefined) {
+            getListFromBackAPI(data.content);
+        }
+    }).catch(error => {
+        console.error('Error:', error)
+    });
+}
+

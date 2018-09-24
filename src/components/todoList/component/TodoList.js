@@ -3,9 +3,11 @@ import Table from "react-bootstrap/es/Table";
 import Dialog from '../../dialog/';
 import { Link } from 'react-router-dom'
 import '../todoList.css';
+import moment from 'moment';
 import {
     getListFromAPI,
-    deleteListFromAPIById
+    deleteListFromAPIById,
+    sortTodoListFromAPI
 } from '../../../restfulAPI/API';
 
 export default class TodoList extends  React.Component{
@@ -15,6 +17,8 @@ export default class TodoList extends  React.Component{
         this.state = {
             isOpenDialog : false,
             idOrderUp: true,
+            actionOrderUp:true,
+            dueDateOrderUp:true,
         };
         getListFromAPI(this.props.userToken,this.props.getListFromBackAPI);
     }
@@ -31,31 +35,42 @@ export default class TodoList extends  React.Component{
         });
     };
 
-    compareUp = (property) => {
-        return function(obj1,obj2){
-            let value1 = obj1[property];
-            let value2 = obj2[property];
-            return value1 - value2;
-        }
-    };
-
-    compareDown = (property) => {
-        return function(obj1,obj2){
-            let value1 = obj1[property];
-            let value2 = obj2[property];
-            return value2 - value1;
-        }
-    };
-
-    sortListById =(lists) => {
+    sortListById = () => {
         this.setState({
             idOrderUp : !this.state.idOrderUp,
         });
-        if (this.state.idOrderUp){
-            return lists.sort(this.compareUp("id"));
-        } else{
-            return lists.sort(this.compareDown("id"));
+        this.sendSortRequest(this.state.idOrderUp,'id');
+    };
+
+    sortListByAction = () =>{
+        this.setState({
+            actionOrderUp : !this.state.actionOrderUp,
+        });
+        this.sendSortRequest(this.state.actionOrderUp,'name');
+    };
+
+    sortListByDueDate = () =>{
+        this.setState({
+            dueDateOrderUp : !this.state.dueDateOrderUp,
+        });
+        this.sendSortRequest(this.state.dueDateOrderUp,'dueDate');
+    };
+
+    getSortObject = (sortField,direction) =>{
+        return {
+            sort:sortField,
+            direction:direction
         }
+    };
+
+    sendSortRequest = (sortOrder,sortField) => {
+        let obj;
+        if (sortOrder){
+            obj = this.getSortObject(sortField,'asc');
+        }else{
+            obj = this.getSortObject(sortField,'desc');
+        }
+        sortTodoListFromAPI(this.props.userToken,obj,this.props.getListFromBackAPI);
     };
 
     render() {
@@ -63,7 +78,6 @@ export default class TodoList extends  React.Component{
             lists,
             listOperation,
             userToken,
-            onDeleteItem,
             getListFromBackAPI,
         }  = this.props;
         return (
@@ -71,15 +85,25 @@ export default class TodoList extends  React.Component{
                 <Table striped bordered condensed hover>
                     <thead>
                     <tr>
-                        <th onClick={()=>{this.sortListById(lists)}}>
+                        <th onClick={()=>{this.sortListById()}}>
                             <div className='triangle' >
                                 <div className= {this.state.idOrderUp ? "triangle-up": "triangle-down"}></div>
                                 <span>ID</span>
                             </div>
                         </th>
-                        <th>Action</th>
+                        <th onClick={()=>{this.sortListByAction()}}>
+                            <div className='triangle' >
+                                <div className= {this.state.actionOrderUp ? "triangle-up": "triangle-down"}></div>
+                                <span>Action</span>
+                            </div>
+                        </th>
                         <th>Tags</th>
-                        <th>Due Date</th>
+                        <th onClick={()=>{this.sortListByDueDate()}}>
+                            <div className='triangle' >
+                                <div className= {this.state.dueDateOrderUp ? "triangle-up": "triangle-down"}></div>
+                                <span>Due Date</span>
+                            </div>
+                        </th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -98,7 +122,7 @@ export default class TodoList extends  React.Component{
                                             })
                                         }
                                     </td>
-                                    <td>{item.dueDate}</td>
+                                    <td>{moment(item.dueDate).format('YYYY-MM-DD')}</td>
                                     <td>{item.status}</td>
                                     <td>
                                         {

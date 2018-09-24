@@ -71,8 +71,6 @@ export default class Dialog extends React.Component{
 
     render() {
         const {
-            onAddItem,
-            onUpdateItem,
             userToken,
             getListFromBackAPI,
             tagsLists,
