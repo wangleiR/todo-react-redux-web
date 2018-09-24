@@ -1,25 +1,33 @@
 import React from "react";
 import '../serach.css'
+import {searchTodoListFromAPI} from "../../../restfulAPI/API";
+
 export default class Search extends  React.Component{
 
     constructor(props){
         super(props);
         this.state ={
-            searchName : "",
+            searchNameOrTagsValue : "",
         };
 
     }
+    getSearchQueryParam = () => {
+       return {
+           searchNameOrTagsValue : this.state.searchNameOrTagsValue,
+       }
+    };
+
     onCompleteInput =(event) =>{
         if (event.keyCode === 13){
-            let arr = this.props.bakLists.filter(item => item.name.indexOf(this.state.searchName) !== -1);
-            this.props.onFilterItemByName(arr);
+            searchTodoListFromAPI(this.props.userToken,this.getSearchQueryParam(),this.props.getTodoListFromBackAPI);
         }
     };
 
     onGetInputName = (event) => {
         this.setState({
-            searchName: event.target.value,
+            searchNameOrTagsValue: event.target.value,
         });
+
     };
 
     render() {

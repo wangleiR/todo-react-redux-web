@@ -1,13 +1,15 @@
 import { connect } from 'react-redux';
 import Search from './component/Search';
 
-const mapStateToProps = ({ reducer }) => ({
+const mapStateToProps = ({ reducer ,isAuthenticated, tagReducer}) => ({
     lists: reducer.lists,
     bakLists: reducer.bakLists,
+    userToken : isAuthenticated.userToken,
+    tagsLists:tagReducer.tagsLists,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-     onFilterItemByName: (lists) => dispatch({type: 'FILTER_TODO', lists:lists}),
+     getTodoListFromBackAPI: (todos) => dispatch({type: 'LIST_TODO', todos: todos})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

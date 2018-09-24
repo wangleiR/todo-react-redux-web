@@ -104,3 +104,28 @@ export function getTagListFromAPI(token,getTagListFromBackAPI) {
         console.error('Error:', error)
     });
 }
+
+
+
+export function searchTodoListFromAPI(token,queryObject,getTodoListFromBackAPI) {
+
+    return fetch('/todos/search?searchNameOrTagsValue='+queryObject.searchNameOrTagsValue,{
+        method:'GET',
+        headers:{
+            'Content-Type' : 'application/json',
+            'Accept': 'application/json',
+            'Authorization':token,
+        },
+    }).then(response => {
+        if (response.ok){
+            return response.json();
+        }
+    }).then( data  => {
+        if (data !== undefined) {
+            getTodoListFromBackAPI(data.content);
+        }
+    }).catch(error => {
+        console.error('Error:', error)
+    });
+}
+

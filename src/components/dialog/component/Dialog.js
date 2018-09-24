@@ -32,8 +32,9 @@ export default class Dialog extends React.Component{
                 dueDate: moment().format('YYYY-MM-DD'),
                 status:'To Do',
             };
+            getTagListFromAPI(this.props.userToken,this.props.getTagListFromBackAPI);
         }
-        getTagListFromAPI(this.props.userToken,this.props.getTagListFromBackAPI);
+
     }
 
     getToDoItem = () =>{
