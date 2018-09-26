@@ -1,6 +1,32 @@
 import React from "react";
 
-export function getListFromAPI(token,getListFromBackAPI) {
+//done
+export function register(username,password){
+    return fetch("/register",{
+        method:'POST',
+        headers:{
+            'Content-Type' : 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({"name":username,"password":password})
+    });
+};
+
+
+//done
+export function login(username,password) {
+    return fetch('/login',{
+        method:'POST',
+        headers:{
+            'Content-Type' : 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({"name":username,"password":password})
+    }).then(response => response.json());
+};
+
+//done
+export function getListFromAPI(token) {
 
     return fetch('/todos',{
         method:'GET',
@@ -9,21 +35,11 @@ export function getListFromAPI(token,getListFromBackAPI) {
             'Accept': 'application/json',
             'Authorization':token,
         },
-    }).then(response => {
-        if (response.ok){
-            return response.json();
-        }
-    }).then( data  => {
-        if (data !== undefined) {
-            getListFromBackAPI(data.content);
-        }
-    }).catch(error => {
-        console.error('Error:', error)
-    });
+    }).then(response => response.json());
 }
 
-
-export function deleteListFromAPIById(token,todoId,updateTodoInReduxFunc) {
+//done
+export function deleteListFromAPIById(token,todoId) {
 
     return fetch('/todos/'+todoId,{
         method:'DELETE',
@@ -32,17 +48,11 @@ export function deleteListFromAPIById(token,todoId,updateTodoInReduxFunc) {
             'Accept': 'application/json',
             'Authorization':token,
         },
-    }).then(response => {
-        if (response.ok){
-            getListFromAPI(token,updateTodoInReduxFunc);
-            return response.json();
-        }
-    }).catch(error => {
-        console.error('Error:', error)
-    });
+    }).then(response => response.json());
 }
 
-export function addTodoFromAPI(token,todoObject,updateTodoInReduxFunc) {
+//done
+export function addTodoFromAPI(token,todoObject) {
 
     return fetch('/todos',{
         method:'POST',
@@ -52,18 +62,11 @@ export function addTodoFromAPI(token,todoObject,updateTodoInReduxFunc) {
             'Authorization':token,
         },
         body: JSON.stringify(todoObject)
-    }).then(response => {
-        if (response.ok){
-            getListFromAPI(token,updateTodoInReduxFunc);
-            return response.json();
-        }
-    }).catch(error => {
-        console.error('Error:', error)
-    });
+    }).then(response => response.json());
 }
 
-
-export function editTodoFromAPI(token,todoObject,updateTodoInReduxFunc) {
+//done
+export function editTodoFromAPI(token,todoObject) {
 
     return fetch('/todos',{
         method:'PUT',
@@ -72,18 +75,12 @@ export function editTodoFromAPI(token,todoObject,updateTodoInReduxFunc) {
             'Accept': 'application/json',
             'Authorization':token,
         },
-        body: JSON.stringify(todoObject)
-    }).then(response => {
-        if (response.ok){
-            getListFromAPI(token,updateTodoInReduxFunc);
-        }
-    }).catch(error => {
-        console.error('Error:', error)
-    });
+        body: JSON.stringify(todoObject),
+    }).then(response => response.json());
 }
 
-
-export function getTagListFromAPI(token,getTagListFromBackAPI) {
+//done
+export function getTagListFromAPI(token) {
 
     return fetch('/tags',{
         method:'GET',
@@ -92,22 +89,12 @@ export function getTagListFromAPI(token,getTagListFromBackAPI) {
             'Accept': 'application/json',
             'Authorization':token,
         },
-    }).then(response => {
-        if (response.ok){
-            return response.json();
-        }
-    }).then( data  => {
-        if (data !== undefined) {
-            getTagListFromBackAPI(data.content);
-        }
-    }).catch(error => {
-        console.error('Error:', error)
-    });
+    }).then(response => response.json());
 }
 
 
-
-export function searchTodoListFromAPI(token,queryObject,getTodoListFromBackAPI) {
+//done
+export function searchTodoListFromAPI(token,queryObject) {
 
     return fetch('/todos/search?searchNameOrTagsValue='+queryObject.searchNameOrTagsValue,{
         method:'GET',
@@ -116,20 +103,11 @@ export function searchTodoListFromAPI(token,queryObject,getTodoListFromBackAPI) 
             'Accept': 'application/json',
             'Authorization':token,
         },
-    }).then(response => {
-        if (response.ok){
-            return response.json();
-        }
-    }).then( data  => {
-        if (data !== undefined) {
-            getTodoListFromBackAPI(data.content);
-        }
-    }).catch(error => {
-        console.error('Error:', error)
-    });
+    }).then(response => response.json());
 }
 
-export function sortTodoListFromAPI(token,sortParamObject,getListFromBackAPI) {
+//done
+export function sortTodoListFromAPI(token,sortParamObject) {
 
     return fetch('/todos?sort='+sortParamObject.sort+','+sortParamObject.direction,{
         method:'GET',
@@ -138,16 +116,5 @@ export function sortTodoListFromAPI(token,sortParamObject,getListFromBackAPI) {
             'Accept': 'application/json',
             'Authorization':token,
         },
-    }).then(response => {
-        if (response.ok){
-            return response.json();
-        }
-    }).then( data  => {
-        if (data !== undefined) {
-            getListFromBackAPI(data.content);
-        }
-    }).catch(error => {
-        console.error('Error:', error)
-    });
+    }).then(response => response.json());
 }
-

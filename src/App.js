@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 
 import { Provider } from 'react-redux';
-import {combineReducers, createStore} from "redux";
+import {combineReducers, createStore, applyMiddleware} from "redux";
 import { BrowserRouter, Route, Switch ,Link} from 'react-router-dom';
+import { createLogger } from 'redux-logger';
+import promiseMiddleware from 'redux-promise-middleware'
 
 import Todo from './views/Todo';
 import Statistic from './views/Statistic';
@@ -18,8 +20,10 @@ const store = createStore(combineReducers({
     isAuthenticated: authenticationReducer,
     reducer :Reducer,
     tagReducer:tagReducer,
-}));
-
+}),applyMiddleware(
+    promiseMiddleware(),
+    createLogger()
+));
 
 
 const Main = () => (

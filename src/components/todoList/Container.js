@@ -8,8 +8,8 @@ const mapStateToProps = ({ reducer, isAuthenticated}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onDeleteItem: (id) => dispatch({type: 'DELETE_TODO', id: id}),
-    getListFromBackAPI: (todos) => dispatch({type: 'LIST_TODO', todos: todos})
+    deleteTodoItem: (promise) => dispatch({type: 'DELETE_TODO', payload: promise}),
+    getListFromBackAPI: (promise) => dispatch({type: 'LIST_TODO', payload: promise})
 
 });
 

@@ -6,7 +6,9 @@ const mapStateToProps = ({ isAuthenticated }) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onLogin: (token) => dispatch({type: 'LOGIN', isSucceed: true, userToken: token})
+  onLogin: (promise) => {
+    dispatch({type: 'LOGIN', payload: promise})
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(View);

@@ -6,6 +6,8 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import {Link} from "react-router-dom";
+import Creatable from 'react-select/lib/Creatable';
+
 import {
     addTodoFromAPI,
     editTodoFromAPI,
@@ -32,7 +34,7 @@ export default class Dialog extends React.Component{
                 dueDate: moment().format('YYYY-MM-DD'),
                 status:'To Do',
             };
-            getTagListFromAPI(this.props.userToken,this.props.getTagListFromBackAPI);
+            this.props.getTagListFromBackAPI(getTagListFromAPI(this.props.userToken));
         }
 
     }
@@ -48,18 +50,18 @@ export default class Dialog extends React.Component{
     };
 
     addTagsForItem = (event) => {
+        let arr = [];
         event.map(obj => {
-            return this.state.tags.push(obj);
+            return arr.push(obj);
         });
         this.setState({
-            tags : this.state.tags,
+            tags : arr,
         });
     };
 
     setItemState = (lists,match) => {
         if (match) {
           lists.map(item=>{
-              console.log(item.id);
               if (item.id == match.params.id) {
                   this.state = {
                       ...item
@@ -69,11 +71,22 @@ export default class Dialog extends React.Component{
         }
     };
 
+    getDefaultSelectValue = () => {
+        let res = [];
+        if (this.state.tags.length > 0) {
+            this.state.tags.map(tag => {
+                res.push({ value: tag.value, label:tag.label});
+            });
+        }
+        return res;
+    };
+
     render() {
         const {
             userToken,
-            getListFromBackAPI,
             tagsLists,
+            addTodoItem,
+            editTodoItem,
         } = this.props;
 
         return (
@@ -95,9 +108,9 @@ export default class Dialog extends React.Component{
                         <div className="dialog-body-item">
                             <label className="dialog-label">Tags : </label>
                             <div className="dialog-select-input">
-                                <Select
+                                <Creatable
                                     onChange={(event)=>{this.addTagsForItem(event)}}
-                                    // defaultValue={[{ value: this.state.tags, label: this.state.tags }]}
+                                    defaultValue={this.getDefaultSelectValue()}
                                     isMulti
                                     name="colors"
                                     options={tagsLists}
@@ -133,7 +146,7 @@ export default class Dialog extends React.Component{
                             !this.props.match &&
                              <div>
                                 <Button bsStyle="primary" onClick={()=>{
-                                    addTodoFromAPI(userToken,this.getToDoItem(),getListFromBackAPI);
+                                    addTodoItem(addTodoFromAPI(userToken,this.getToDoItem()));
                                     this.props.closeDialog()
                                 }}>Add</Button>
                                 <Button onClick={()=>{this.props.closeDialog()}}>Close</Button>
@@ -143,7 +156,7 @@ export default class Dialog extends React.Component{
                             this.props.match &&
                             <div>
                                 <Button onClick={()=>{
-                                    editTodoFromAPI(userToken,this.getToDoItem(),getListFromBackAPI);
+                                    editTodoItem(editTodoFromAPI(userToken,this.getToDoItem()));
                                 }}><Link to={`/home`}>Update</Link></Button>
                                 <Button><Link to={`/home`}>Close</Link></Button>
                             </div>

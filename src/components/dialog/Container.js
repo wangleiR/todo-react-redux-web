@@ -8,10 +8,10 @@ const mapStateToProps = ({reducer,isAuthenticated,tagReducer}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-     onAddItem: (item) => dispatch({type: 'ADD_TODO', item: item}),
-     onUpdateItem: (item) => dispatch({type: 'UPDATE_TODO', item: item}),
-     getListFromBackAPI: (todos) => dispatch({type: 'LIST_TODO', todos: todos}),
-     getTagListFromBackAPI: (tagsLists) => dispatch({type: 'LIST_TAG', tagsLists: tagsLists})
+     // getListFromBackAPI: (promise) => dispatch({type: 'LIST_TODO', payload: promise}),
+     addTodoItem: (promise) => dispatch({type: 'ADD_TODO', payload: promise}),
+     editTodoItem: (promise) => dispatch({type: 'UPDATE_TODO', payload: promise}),
+     getTagListFromBackAPI: (promise) => dispatch({type: 'LIST_TAG', payload: promise})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Dialog);

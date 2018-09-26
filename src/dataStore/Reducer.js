@@ -19,85 +19,54 @@ const initList = [
 
 const initState = {
     lists : initList,
-    bakLists : initList,
 };
 
 const Reducer = (state = initState, action) => {
+
     switch (action.type) {
-        case "LIST_TODO" :
+        case "LIST_TODO_FULFILLED" :
             return{
                 ...state,
-                lists:action.todos,
-                bakLists:action.todos,
+                lists:action.payload.content,
                 listOperation:["details", "delete"],
             };
-        case "ADD_TODO" :
+
+        case "ADD_TODO_FULFILLED" :
             return {
                 ...state,
                 lists: [
                     ...state.lists,
                     {
-                        id: new Date().getTime(),
-                        name : action.item.name,
-                        tags : action.item.tags,
-                        dueDate : action.item.dueDate,
-                        status: action.item.status,
+                        id: action.payload.id,
+                        name : action.payload.name,
+                        tags : action.payload.tags,
+                        dueDate : action.payload.dueDate,
+                        status: action.payload.status,
                         actions: ["details", "delete"],
                     }
                 ],
-                bakLists: [
-                    ...state.bakLists,
-                    {
-                        id: new Date().getTime(),
-                        name : action.item.name,
-                        tags : action.item.tags,
-                        dueDate : action.item.dueDate,
-                        status: action.item.status,
-                        actions: ["details", "delete"],
-                    }
-                ]
             };
 
-        case "DELETE_TODO":
+        case "DELETE_TODO_FULFILLED":
             return {
                 ...state,
-                lists:state.lists.filter(item => item.id !== action.id),
-                bakLists:state.bakLists.filter(item => item.id !== action.id),
+                lists:state.lists.filter(item => item.id !== action.payload.id),
             };
 
-
-        case "UPDATE_TODO":
+        case "UPDATE_TODO_FULFILLED":
             return {
                 ...state,
                 lists: [
-                    ...state.lists.filter(item => item.id != action.item.id),
+                    ...state.lists.filter(item => item.id !== action.payload.id),
                     {
-                        id: action.item.id,
-                        name : action.item.name,
-                        tags : action.item.tags,
-                        dueDate : action.item.dueDate,
-                        status: action.item.status,
+                        id: action.payload.id,
+                        name : action.payload.name,
+                        tags : action.payload.tags,
+                        dueDate : action.payload.dueDate,
+                        status: action.payload.status,
                         actions: ["details", "delete"],
                     }
                 ],
-                bakLists: [
-                    ...state.bakLists.filter(item => item.id != action.item.id),
-                    {
-                        id: action.item.id,
-                        name : action.item.name,
-                        tags : action.item.tags,
-                        dueDate : action.item.dueDate,
-                        status: action.item.status,
-                        actions: ["details", "delete"],
-                    }
-                ]
-            };
-
-
-        case "FILTER_TODO":
-            return {
-                ...state,
-                lists:action.lists,
             };
 
         default:

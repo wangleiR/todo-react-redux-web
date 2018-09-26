@@ -9,7 +9,7 @@ const mapStateToProps = ({ reducer ,isAuthenticated, tagReducer}) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-     getTodoListFromBackAPI: (todos) => dispatch({type: 'LIST_TODO', todos: todos})
+     getTodoListFromBackAPI: (promise) => dispatch({type: 'LIST_TODO', payload: promise})
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Search);

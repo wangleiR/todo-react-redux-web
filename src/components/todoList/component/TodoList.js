@@ -20,7 +20,7 @@ export default class TodoList extends  React.Component{
             actionOrderUp:true,
             dueDateOrderUp:true,
         };
-        getListFromAPI(this.props.userToken,this.props.getListFromBackAPI);
+        this.props.getListFromBackAPI(getListFromAPI(this.props.userToken));
     }
 
     openDialog = () => {
@@ -70,7 +70,7 @@ export default class TodoList extends  React.Component{
         }else{
             obj = this.getSortObject(sortField,'desc');
         }
-        sortTodoListFromAPI(this.props.userToken,obj,this.props.getListFromBackAPI);
+        this.props.getListFromBackAPI(sortTodoListFromAPI(this.props.userToken,obj));
     };
 
     render() {
@@ -78,7 +78,7 @@ export default class TodoList extends  React.Component{
             lists,
             listOperation,
             userToken,
-            getListFromBackAPI,
+            deleteTodoItem,
         }  = this.props;
         return (
             <div>
@@ -111,6 +111,8 @@ export default class TodoList extends  React.Component{
                     <tbody>
                     {
                         lists.map(item => {
+                            // debugger;
+                            console.log(item);
                             return (
                                 <tr key={item.id}>
                                     <td>{item.id}</td>
@@ -129,7 +131,7 @@ export default class TodoList extends  React.Component{
                                             listOperation && listOperation.map(it => {
                                                 if (it === 'delete') {
                                                     return <button key={new Date().getTime()+1} onClick={()=>{
-                                                        deleteListFromAPIById(userToken,item.id,getListFromBackAPI);
+                                                        deleteTodoItem(deleteListFromAPIById(userToken,item.id));
                                                     }}>{it}</button>
                                                 }
                                                 if (it === 'details'){

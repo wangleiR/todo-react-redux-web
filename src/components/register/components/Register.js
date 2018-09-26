@@ -2,6 +2,9 @@ import React from 'react';
 import { Modal, Button} from "react-bootstrap";
 import '../style.scss';
 import {Redirect} from "react-router-dom";
+import {
+    register
+} from '../../../restfulAPI/API';
 
 export default class Register extends React.Component{
 
@@ -12,23 +15,10 @@ export default class Register extends React.Component{
         };
     }
 
-    register = (username,password) => {
-        return fetch("/register",{
-            method:'POST',
-            headers:{
-                'Content-Type' : 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({"name":username,"password":password})
-        }).then(response => {
-            if (response.ok){
-                this.setState({
-                    registerFlag : true,
-                });
-                return response.json();
-            }
-        }).catch(error => {
-            console.error('Error:', error)
+    onRegister = () => {
+        register(this.username.value,this.password.value);
+        this.setState({
+            registerFlag : true,
         });
     };
 
@@ -56,7 +46,7 @@ export default class Register extends React.Component{
 
                             <Modal.Footer>
                                 <Button bsStyle="primary" onClick={() => {
-                                  this.register(this.username.value,this.password.value);
+                                    this.onRegister();
                                 }}>Register</Button>
                             </Modal.Footer>
                         </Modal.Dialog>
@@ -65,7 +55,6 @@ export default class Register extends React.Component{
                 {
                     this.state.registerFlag && <Redirect to="/" />
                 }
-
             </div>
         );
     }

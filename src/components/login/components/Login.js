@@ -2,9 +2,7 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { Modal, Button} from "react-bootstrap";
 import '../style.scss';
-import {authenticationReducer} from "../../../dataStore/authenticationReducer";
-
-const authenticationServer = '/login';
+import {login} from "../../../restfulAPI/API";
 
 export default class Login extends React.Component{
 
@@ -12,30 +10,8 @@ export default class Login extends React.Component{
         super(props);
     }
 
-    createUserSession = (username,password) => {
-        return fetch(authenticationServer,{
-            method:'POST',
-            headers:{
-                'Content-Type' : 'application/json',
-                'Accept': 'application/json'
-            },
-            body: JSON.stringify({"name":username,"password":password})
-        }).then(response => {
-            if (response.ok){
-                return response.json();
-            }
-        }).then( data  => {
-          if (data !== undefined) {
-              console.log(data.token);
-              this.props.onLogin(data.token);
-          }
-        }).catch(error => {
-            console.error('Error:', error)
-        });
-    };
-
     render() {
-      const { logged } = this.props;
+      const { logged,onLogin } = this.props;
         return (
             <div>
                 {
@@ -59,7 +35,7 @@ export default class Login extends React.Component{
 
                             <Modal.Footer>
                                 <Button bsStyle="primary" onClick={() => {
-                                  this.createUserSession(this.username.value,this.password.value);
+                                    onLogin(login(this.username.value,this.password.value));
                                 }}>Login</Button>
                             </Modal.Footer>
                         </Modal.Dialog>

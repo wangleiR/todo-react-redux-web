@@ -19,7 +19,7 @@ export default class Search extends  React.Component{
 
     onCompleteInput =(event) =>{
         if (event.keyCode === 13){
-            searchTodoListFromAPI(this.props.userToken,this.getSearchQueryParam(),this.props.getTodoListFromBackAPI);
+            this.props.getTodoListFromBackAPI(searchTodoListFromAPI(this.props.userToken,this.getSearchQueryParam()));
         }
     };
 

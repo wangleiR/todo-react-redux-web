@@ -11,10 +11,10 @@ const initState = {
 
 const tagReducer = (state=initState, action) => {
     switch (action.type) {
-        case "LIST_TAG" :
+        case "LIST_TAG_FULFILLED" :
             return {
                 ...state,
-                tagsLists: action.tagsLists
+                tagsLists: action.payload.content,
             };
 
         default:

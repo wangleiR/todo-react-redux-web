@@ -1,9 +1,9 @@
 export const authenticationReducer = (state = false, action) => {
   switch (action.type) {
-    case 'LOGIN':
+    case 'LOGIN_FULFILLED':
       return {
-          isSucceed: action.isSucceed,
-          userToken: action.userToken,
+          isSucceed: true,
+          userToken: action.payload.token,
       };
     default:
       return state;
