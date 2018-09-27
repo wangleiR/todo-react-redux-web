@@ -2,7 +2,7 @@ import React from "react";
 
 //done
 export function register(username,password){
-    return fetch("/register",{
+    return fetch("/api/register",{
         method:'POST',
         headers:{
             'Content-Type' : 'application/json',
@@ -15,7 +15,7 @@ export function register(username,password){
 
 //done
 export function login(username,password) {
-    return fetch('/login',{
+    return fetch('/api/login',{
         method:'POST',
         headers:{
             'Content-Type' : 'application/json',
@@ -28,7 +28,7 @@ export function login(username,password) {
 //done
 export function getListFromAPI(token) {
 
-    return fetch('/todos',{
+    return fetch('/api/todos',{
         method:'GET',
         headers:{
             'Content-Type' : 'application/json',
@@ -41,7 +41,7 @@ export function getListFromAPI(token) {
 //done
 export function deleteListFromAPIById(token,todoId) {
 
-    return fetch('/todos/'+todoId,{
+    return fetch('/api/todos/'+todoId,{
         method:'DELETE',
         headers:{
             'Content-Type' : 'application/json',
@@ -54,7 +54,7 @@ export function deleteListFromAPIById(token,todoId) {
 //done
 export function addTodoFromAPI(token,todoObject) {
 
-    return fetch('/todos',{
+    return fetch('/api/todos',{
         method:'POST',
         headers:{
             'Content-Type' : 'application/json',
@@ -68,7 +68,7 @@ export function addTodoFromAPI(token,todoObject) {
 //done
 export function editTodoFromAPI(token,todoObject) {
 
-    return fetch('/todos',{
+    return fetch('/api/todos',{
         method:'PUT',
         headers:{
             'Content-Type' : 'application/json',
@@ -82,7 +82,7 @@ export function editTodoFromAPI(token,todoObject) {
 //done
 export function getTagListFromAPI(token) {
 
-    return fetch('/tags',{
+    return fetch('/api/tags',{
         method:'GET',
         headers:{
             'Content-Type' : 'application/json',
@@ -96,7 +96,7 @@ export function getTagListFromAPI(token) {
 //done
 export function searchTodoListFromAPI(token,queryObject) {
 
-    return fetch('/todos/search?searchNameOrTagsValue='+queryObject.searchNameOrTagsValue,{
+    return fetch('/api/todos/search?searchNameOrTagsValue='+queryObject.searchNameOrTagsValue,{
         method:'GET',
         headers:{
             'Content-Type' : 'application/json',
@@ -109,7 +109,7 @@ export function searchTodoListFromAPI(token,queryObject) {
 //done
 export function sortTodoListFromAPI(token,sortParamObject) {
 
-    return fetch('/todos?sort='+sortParamObject.sort+','+sortParamObject.direction,{
+    return fetch('/api/todos?sort='+sortParamObject.sort+','+sortParamObject.direction,{
         method:'GET',
         headers:{
             'Content-Type' : 'application/json',
