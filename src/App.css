@@ -33,3 +33,12 @@ span {
   margin: 0 5px;
 }
 
+.messages-list{
+  margin: 0 0 20px 0;
+  display: flex;
+}
+
+.messages-item{
+  padding-left: 10px;
+}
+

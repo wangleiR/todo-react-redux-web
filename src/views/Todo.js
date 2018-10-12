@@ -20,7 +20,7 @@ const Todo = (logged) => {
                         </div>
                     }
                     {
-                        !logged.logged  && <Redirect to="/" />
+                        !logged.logged  && <Redirect to="/login" />
                     }
 
                 </div>

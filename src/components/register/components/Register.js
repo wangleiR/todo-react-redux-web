@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Button} from "react-bootstrap";
 import '../style.scss';
-import {Redirect} from "react-router-dom";
+import {Link, Redirect} from "react-router-dom";
 import {
     register
 } from '../../../restfulAPI/API';
@@ -48,15 +48,17 @@ export default class Register extends React.Component{
                                 <Button bsStyle="primary" onClick={() => {
                                     this.onRegister();
                                 }}>Register</Button>
+                                <Button>
+                                    <Link to={`/`}>Close</Link>
+                                </Button>
                             </Modal.Footer>
                         </Modal.Dialog>
                    </div>
                 }
                 {
-                    this.state.registerFlag && <Redirect to="/" />
+                    this.state.registerFlag && <Redirect to="/login" />
                 }
             </div>
         );
     }
-
 }

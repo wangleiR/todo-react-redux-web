@@ -4,7 +4,7 @@ import React from "react";
 const Header = () => {
     return (
         <div className="tabs-title">
-            <Link to='/'> To dos</Link>
+            <Link to='/home'> To dos</Link>
             <Link to='/statistic'> Statistic</Link>
         </div>);
 };

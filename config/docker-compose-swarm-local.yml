@@ -1,0 +1,73 @@
+version: "3"
+services:
+  frontend:
+    image: frontend
+    ports:
+      - "80:80"
+
+  user-service:
+    image: todo-user-service
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8082:8082"
+    depends_on:
+      - "config-service"
+      - "mysql"
+
+  todo-service:
+    image: todo-todo-service
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8088:8088"
+    depends_on:
+      - "config-service"
+      - "mysql"
+
+
+  config-service:
+    image: todo-config-service
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8888:8888"
+
+
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "3306:3306"
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+
+  zuul-service:
+    image: todo-zuul-service
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8080:8080"

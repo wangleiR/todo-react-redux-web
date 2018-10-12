@@ -1,0 +1,72 @@
+version: "3"
+services:
+  frontend:
+    image: wanglei2019/frontend
+    ports:
+      - "80:80"
+
+  user-service:
+    image: wanglei2019/todo-user-service
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8082:8082"
+    depends_on:
+      - "config-service"
+      - "mysql"
+
+  todo-service:
+    image: wanglei2019/todo-todo-service
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8088:8088"
+    depends_on:
+      - "config-service"
+      - "mysql"
+
+  config-service:
+    image: wanglei2019/todo-config-service
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8888:8888"
+
+
+  mysql:
+    image: wanglei2019/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "3306:3306"
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+
+  zuul-service:
+    image: wanglei2019/todo-zuul-service
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: on-failure
+    ports:
+      - "8080:8080"

@@ -18,7 +18,7 @@ const Statistic = ( logged ) => {
                 </div>
             }
             {
-                !logged.logged  && <Redirect to="/" />
+                !logged.logged  && <Redirect to="/login" />
             }
 
         </div>

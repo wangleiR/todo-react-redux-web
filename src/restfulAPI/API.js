@@ -2,7 +2,7 @@ import React from "react";
 
 //done
 export function register(username,password){
-    return fetch("/api/register",{
+    return fetch("/api/users/register",{
         method:'POST',
         headers:{
             'Content-Type' : 'application/json',
@@ -15,7 +15,7 @@ export function register(username,password){
 
 //done
 export function login(username,password) {
-    return fetch('/api/login',{
+    return fetch('/api/users/login',{
         method:'POST',
         headers:{
             'Content-Type' : 'application/json',

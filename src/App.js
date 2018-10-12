@@ -33,9 +33,14 @@ const Main = () => (
               {
                   store.getState().isAuthenticated.isSucceed
               }
+              <div className="messages-list">
+                  <div className="messages-item"><Link to={`/register`}>注册</Link></div>
+                  <div className="messages-item"><Link to={`/login`}>登录</Link></div>
+              </div>
             <div>
                 <Switch>
-                    <Route exact path='/' component={Login}/>
+                    <Route exact path='/'/>
+                    <Route path='/login' component={Login}/>
                     <Route path='/statistic' component={Statistic}/>
                     <Route path='/details/:id' component={Dialog}/>
                     <Route path="/home" component={Todo} />

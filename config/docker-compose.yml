@@ -1,10 +1,52 @@
 version: "3"
 services:
   web:
-    # replace username/repo:tag with your name and image details
     image: nginx
     volumes:
       - ../build/:/app
-      - ./default.conf:/etc/nginx/conf.d/nginx.conf
+      - ./nginx.conf:/etc/nginx/conf.d/nginx.conf
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
       - "80:80"
+
+  user-service:
+    image: todo-user-service
+    restart: always
+    ports:
+      - "8082:8082"
+    depends_on:
+      - "config-service"
+      - "mysql"
+
+
+  todo-service:
+    image: todo-todo-service
+    restart: always
+    ports:
+      - "8088:8088"
+    depends_on:
+      - "config-service"
+      - "mysql"
+
+
+  config-service:
+    image: todo-config-service
+    restart: on-failure
+    ports:
+      - "8888:8888"
+
+  mysql:
+    image: mysql
+    volumes:
+      - /Users/lewang/Project-Tw/todoProject/todoMysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "3307:3306"
+    restart: always
+
+  zuul-service:
+    image: todo-zuul-service
+    restart: always
+    ports:
+      - "8080:8080"

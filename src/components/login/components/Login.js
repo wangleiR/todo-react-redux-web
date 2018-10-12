@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import { Modal, Button} from "react-bootstrap";
 import '../style.scss';
 import {login} from "../../../restfulAPI/API";
@@ -8,6 +8,9 @@ export default class Login extends React.Component{
 
     constructor(props){
         super(props);
+        this.state = {
+            showDialog: true,
+        }
     }
 
     render() {
@@ -15,7 +18,7 @@ export default class Login extends React.Component{
         return (
             <div>
                 {
-                    !logged &&
+                    !logged && this.state.showDialog &&
                     <div className="static-modal">
                         <Modal.Dialog>
                             <Modal.Header>
@@ -36,7 +39,12 @@ export default class Login extends React.Component{
                             <Modal.Footer>
                                 <Button bsStyle="primary" onClick={() => {
                                     onLogin(login(this.username.value,this.password.value));
-                                }}>Login</Button>
+                                }}>
+                                    Login
+                                </Button>
+                                <Button>
+                                    <Link to={`/`}>Close</Link>
+                                </Button>
                             </Modal.Footer>
                         </Modal.Dialog>
                     </div>
