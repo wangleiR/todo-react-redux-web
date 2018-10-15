@@ -94,9 +94,10 @@ export function getTagListFromAPI(token) {
 
 
 //done
-export function searchTodoListFromAPI(token,queryObject) {
+export function searchTodoListFromAPIAdvance(token,queryObject) {
 
-    return fetch('/api/todos/search?searchNameOrTagsValue='+queryObject.searchNameOrTagsValue,{
+    return fetch('/api/todos/search?searchNameOrTagsValue='+queryObject.searchNameOrTagsValue
+        +'&from='+queryObject.beginDate+'&to='+queryObject.endDate,{
         method:'GET',
         headers:{
             'Content-Type' : 'application/json',

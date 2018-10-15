@@ -2,10 +2,26 @@
     margin: 20px 0;
 }
 
-.search-container input{
+.searchInput{
     border: 1px solid gray;
     border-radius:10px ;
     margin-right: 30px;
     width: 60%;
     height: 30px;
+}
+
+.search-container-advance{
+    padding: 10px;
+    border: solid 1px grey;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-container-advance-item{
+    display: flex;
+}
+
+.item-label{
+    margin-right: 10px;
 }
